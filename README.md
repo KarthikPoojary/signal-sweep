@@ -1,36 +1,143 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Signal Sweep
 
-## Getting Started
+**Find the patterns in your incident backlog — powered by AI.**
 
-First, run the development server:
+**Live demo: https://signal-sweep.vercel.app**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## Why this exists
+
+One of the hardest parts of running a programme at scale is turning a wall of incidents into something actionable. At Thinkster I built a SQL/Python feedback loop that grouped support tickets by root cause so the engineering team could see patterns, not noise. The problem wasn't finding individual bugs — it was that no one could see *which failure mode was recurring most*, until it was too late to do something cheap about it.
+
+Signal Sweep generalises that idea and powers it with an LLM. Drop in a batch of incidents, bug reports, or GitHub issues. Get back a structured clustering: failure modes ranked by count, severity-coded, with a remediation theme and a VP-ready executive summary. The kind of output that turns a triage meeting into a roadmap conversation.
+
+This is a portfolio project demonstrating applied TPM skills: incident taxonomy design, LLM prompt engineering for structured output, and the cost-control thinking that comes from operating real products.
+
+---
+
+## Demo mode
+
+The default experience uses **44 real bug reports from VS Code** — fetched from GitHub, clustered once by Groq's Llama 3.3 70B, and stored in the repo as pre-baked JSON. Clicking "Analyse" returns the pre-built result instantly, with zero API calls.
+
+This is a deliberate design decision: a public portfolio tool that makes an LLM call on every page view would burn through an API budget within hours of a LinkedIn share. Demo mode makes the experience identical to the real flow — same UI, same output format — without the cost exposure.
+
+To run real analysis on your own data, add a free Groq API key (takes 2 minutes at [console.groq.com/keys](https://console.groq.com/keys)). Anthropic keys also work.
+
+---
+
+## What it does
+
+1. **Pick an input source** — sample dataset, paste your own incidents, or fetch live issues from any public GitHub repo
+2. **Click Analyse** — clusters appear in under 10 seconds
+3. **Read the output** — summary banner, key insight callout, severity-coded cluster cards with example titles and remediation themes
+4. **Generate executive summary** — one more click produces a paragraph suitable for sending to a VP
+5. **Export** — markdown or CSV, ready for a slide deck or a Jira epic
+
+---
+
+## Output schema
+
+```json
+{
+  "top_level_summary": "1-2 sentences on the overall health signal",
+  "total_count": 44,
+  "clusters": [
+    {
+      "name": "Agents Functionality",
+      "count": 7,
+      "severity": "high",
+      "example_titles": ["Agent host is spawning worktree terminal", "..."],
+      "remediation_theme": "Stabilise agent session lifecycle to prevent data loss and unexpected restarts"
+    }
+  ],
+  "key_insight": "The most non-obvious finding from this batch"
+}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Claude/Groq is prompted to cluster by *root cause*, not surface symptom — "authentication service instability" rather than "login broken".
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## AI provider
 
-## Learn More
+Groq is the default — free tier, 1,000 requests/day, Llama 3.3 70B, very fast. Anthropic Claude is supported as a fallback. The app auto-detects which provider to use from the key prefix (`gsk_` = Groq, `sk-ant-` = Anthropic) — no dropdown needed.
 
-To learn more about Next.js, take a look at the following resources:
+Server-side: the API key is resolved in a Next.js route handler and never exposed to the client bundle.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Tech stack
 
-## Deploy on Vercel
+| Layer | Choice |
+|-------|--------|
+| Framework | Next.js 16 (App Router, TypeScript) |
+| Styling | Tailwind CSS v4 |
+| LLM (default) | Groq — Llama 3.3 70B (free tier) |
+| LLM (fallback) | Anthropic — Claude Opus |
+| Data | GitHub REST API + pre-baked JSON |
+| Hosting | Vercel |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Local development
+
+**Prerequisites:** Node.js 18+. A Groq key (free) or Anthropic key for real analysis.
+
+```bash
+git clone https://github.com/KarthikPoojary/signal-sweep
+cd signal-sweep
+npm install
+cp .env.local.example .env.local
+# Edit .env.local — add GROQ_API_KEY for real analysis (optional)
+npm run dev
+```
+
+Open http://localhost:3000. Click "Analyse" with the sample dataset — no key needed.
+
+**Getting a free Groq key:** Go to https://console.groq.com/keys and create a key. No charges, no card required.
+
+---
+
+## Sample dataset
+
+44 closed bug issues from [microsoft/vscode](https://github.com/microsoft/vscode), fetched via the GitHub REST API on 2026-05-28. Filtered to `state=closed&labels=bug`, sorted by creation date descending. Body text truncated to 500 characters per issue.
+
+The pre-baked analysis in `data/sample-analysis.json` was generated by a single Groq API call during development — the only real LLM call ever made for the demo.
+
+To regenerate with fresh data:
+```bash
+GITHUB_TOKEN=... npx tsx scripts/fetch-sample-data.ts
+GROQ_API_KEY=gsk_... npx tsx scripts/generate-sample-analysis.ts
+```
+
+---
+
+## Design decisions
+
+**Why Groq instead of OpenAI or Anthropic as the default?**
+Groq's free tier removes the cost barrier for both developer and visitor. A portfolio visitor can try real analysis in 2 minutes without a credit card. Claude and GPT-4 are better models but the quality difference for JSON clustering doesn't justify the cost friction at this scale.
+
+**Why store pre-baked JSON in the repo?**
+The demo dataset doesn't change. Fetching it live on every page load would add latency, cost, and a rate-limit dependency. Static JSON is faster, free, and version-controlled.
+
+**Why require the visitor's own key instead of a shared server key?**
+A shared key with no authentication is an invitation to abuse. Requiring the visitor's key keeps cost exposure at zero while still enabling the full real-analysis flow for anyone who wants it.
+
+**Why structure the output as clusters rather than a list?**
+A list of 44 bug titles is noise. A list of 5–10 named failure modes with counts is signal. The TPM question is never "what broke?" — it's "what keeps breaking, how often, and what should we do about it?"
+
+---
+
+## Roadmap
+
+- Trend view: compare two batches (this week vs last week)
+- Slack/Jira export for the executive summary
+- Support for CSV/spreadsheet paste (import from incident management tools)
+- Severity threshold configuration per use case
+
+---
+
+## About
+
+Built by [Karthik Poojary](https://github.com/KarthikPoojary) as part of a portfolio of TPM-focused engineering tools.
