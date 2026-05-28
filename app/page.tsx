@@ -1,65 +1,107 @@
-import Image from "next/image";
+'use client';
+
+import { useState } from 'react';
+import InputPanel from '@/components/InputPanel';
+import AnalysisResults from '@/components/AnalysisResults';
+import { SkeletonResults } from '@/components/SkeletonCard';
+import type { AnalysisResult, RawIssue } from '@/types/analysis';
+
+// Pre-baked data — served from repo, zero API cost in demo mode
+import sampleAnalysis from '@/data/sample-analysis.json';
+import sampleExecSummary from '@/data/sample-exec-summary.json';
+
+type State =
+  | { phase: 'idle' }
+  | { phase: 'loading'; count: number }
+  | { phase: 'done'; analysis: AnalysisResult; isDemo: boolean; apiKey?: string }
+  | { phase: 'error'; message: string };
 
 export default function Home() {
+  const [state, setState] = useState<State>({ phase: 'idle' });
+
+  async function handleAnalyse(
+    issues: Pick<RawIssue, 'title' | 'body'>[],
+    isDemo: boolean,
+    apiKey?: string,
+  ) {
+    if (isDemo) {
+      setState({ phase: 'done', analysis: sampleAnalysis as AnalysisResult, isDemo: true });
+      return;
+    }
+
+    setState({ phase: 'loading', count: issues.length });
+
+    try {
+      const res = await fetch('/api/analyse', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ issues, apiKey }),
+      });
+      if (!res.ok) {
+        const d = await res.json();
+        throw new Error(d.error ?? `HTTP ${res.status}`);
+      }
+      const analysis: AnalysisResult = await res.json();
+      setState({ phase: 'done', analysis, isDemo: false, apiKey });
+    } catch (e) {
+      setState({ phase: 'error', message: e instanceof Error ? e.message : 'Unexpected error' });
+    }
+  }
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <main className="min-h-screen bg-neutral-950 text-neutral-100">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10 space-y-10">
+        <header className="space-y-1">
+          <h1 className="text-xl font-bold tracking-tight text-neutral-100">Signal Sweep</h1>
+          <p className="text-sm text-neutral-500">
+            Find the patterns in your incident backlog — powered by Claude
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+        </header>
+
+        <InputPanel
+          onAnalyse={handleAnalyse}
+          loading={state.phase === 'loading'}
+        />
+
+        {state.phase === 'loading' && (
+          <div className="space-y-4">
+            <p className="text-sm text-neutral-400 animate-pulse">
+              Clustering {state.count} incidents...
+            </p>
+            <SkeletonResults />
+          </div>
+        )}
+
+        {state.phase === 'error' && (
+          <div className="rounded-xl border border-red-900/50 bg-red-950/20 px-5 py-4">
+            <p className="text-sm font-medium text-red-400">Analysis failed</p>
+            <p className="text-xs text-red-400/70 mt-1">{state.message}</p>
+            <button
+              onClick={() => setState({ phase: 'idle' })}
+              className="mt-3 text-xs text-neutral-500 hover:text-neutral-300 transition-colors"
+            >
+              Try again
+            </button>
+          </div>
+        )}
+
+        {state.phase === 'done' && (
+          <AnalysisResults
+            analysis={state.analysis}
+            isDemo={state.isDemo}
+            apiKey={state.apiKey}
+            preBakedExecSummary={state.isDemo ? (sampleExecSummary as { summary: string }).summary : undefined}
+          />
+        )}
+
+        <footer className="flex items-center justify-between pt-4 border-t border-neutral-900 text-xs text-neutral-700">
+          <span>Built by Karthik Poojary</span>
+          <div className="flex gap-4">
+            <a href="https://github.com/KarthikPoojary" target="_blank" rel="noopener noreferrer" className="hover:text-neutral-500 transition-colors">GitHub</a>
+            <a href="https://linkedin.com/in/karthikpoojary" target="_blank" rel="noopener noreferrer" className="hover:text-neutral-500 transition-colors">LinkedIn</a>
+          </div>
+        </footer>
+      </div>
+    </main>
   );
 }

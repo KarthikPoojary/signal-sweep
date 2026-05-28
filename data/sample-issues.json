@@ -1,0 +1,633 @@
+[
+  {
+    "id": 4531960029,
+    "title": "Snippets no longer working on the latest VS Code",
+    "body": "\nType: <b>Bug</b>\n\nAdd a snippet according to this official documentation\nType the prefix to test the snippet, it does not work\nI added this snippet for debugging ruby apps\n```\n{\n\t// Place your snippets for ruby here. Each snippet is defined under a snippet name and has a prefix, body and \n\t// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:\n\t// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}",
+    "labels": [
+      "bug",
+      "snippets",
+      "unreleased"
+    ],
+    "created_at": "2026-05-27T11:28:01Z",
+    "closed_at": "2026-05-28T16:51:04Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/318549"
+  },
+  {
+    "id": 4530537090,
+    "title": "Tooltips in Manage Language Model dialog render mailto: links",
+    "body": "When I hover over a copilot CLI model in Manage Language Models it renders a link which is a mailto: link for some reason...\n\n<img width=\"1252\" height=\"118\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/99cf0cf5-6ffd-4800-a264-5be55d484442\" />",
+    "labels": [
+      "bug",
+      "model-byok"
+    ],
+    "created_at": "2026-05-27T07:43:58Z",
+    "closed_at": "2026-05-27T20:53:02Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/318527"
+  },
+  {
+    "id": 4528159500,
+    "title": "Sessions Sync: Search subagent are synced as stand-alone sessions",
+    "body": "Did some research in a repo, and got multiple sessions synced for repeated search subagent tool usage:\nhttps://github.com/microsoft/vscode/blob/main/extensions/copilot/src/extension/tools/node/searchSubagentTool.ts\n\n<img src=\"https://github.com/user-attachments/assets/ba4f9785-8aa1-4da0-9da2-58c634d358e9\" alt=\"Image\" width=\"725\" height=\"290\">\n\n",
+    "labels": [
+      "bug",
+      "insiders-released",
+      "chronicle"
+    ],
+    "created_at": "2026-05-26T23:17:49Z",
+    "closed_at": "2026-05-27T02:11:59Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/318463"
+  },
+  {
+    "id": 4527893087,
+    "title": "Telemetry validation breaks build on main: \"Property sessionid on event vscodeAgents.sessions/requestSent is overloaded by a common property\"",
+    "body": "The `Generate lists of telemetry events` step in the Linux product build is failing on `main`, which blocks PR CI for everyone (including unrelated PRs that just merge the latest `main`).\n\n### What's failing\n\nFrom the failing pipeline step `Generate lists of telemetry events` (`node build/azure-pipelines/common/extract-telemetry.ts`):\n\n```\nProperty sessionid on event vscodeAgents.sessions/requestSent is overloaded by a common property\nError: Validation failed, please see logs for more informatio",
+    "labels": [
+      "bug",
+      "important",
+      "insiders-released"
+    ],
+    "created_at": "2026-05-26T22:21:36Z",
+    "closed_at": "2026-05-26T23:07:17Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/318450"
+  },
+  {
+    "id": 4527021903,
+    "title": "Credit limit reached banner shows at 99% usage",
+    "body": "Reported by @roblourens during testing https://github.com/microsoft/vscode-internalbacklog/issues/7777\n\nhttps://github.com/user-attachments/assets/b8252f51-ff97-41a9-83b3-de5f1e0d14a0\n\n\nSteps to Reproduce:\n\n1. Copilot EDU account\n2. AI Credits set to 199/200 \n3. See the limit reached banner \n4. Can still send a final message to use the final credit \n\nWe should only show the limit reached banner at true 100% \n",
+    "labels": [
+      "bug",
+      "UBB"
+    ],
+    "created_at": "2026-05-26T19:46:34Z",
+    "closed_at": "2026-05-28T01:01:05Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/318421"
+  },
+  {
+    "id": 4526854346,
+    "title": "Quota usage is slow to update in vscode",
+    "body": "Testing microsoft/vscode-internalbacklog#7777\n\nIf I send a request then open the Copilot Status item, the usage there takes a long time to update. It even updates on https://github.com/settings/copilot/features faster than inside vscode. This makes me nervous as I'm watching it during a long agent request, because I can't watch my usage live, rather it's going to be out of date by 30s or so",
+    "labels": [
+      "bug",
+      "insiders-released",
+      "UBB"
+    ],
+    "created_at": "2026-05-26T19:19:43Z",
+    "closed_at": "2026-05-27T22:43:17Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/318419"
+  },
+  {
+    "id": 4526850541,
+    "title": "Multipliers show for UBB accounts in Cloud model picker",
+    "body": "<img src=\"https://github.com/user-attachments/assets/4b7ace70-00a8-4951-a981-7843df4967b5\" alt=\"Image\" width=\"328\" height=\"314\">\n\n",
+    "labels": [
+      "bug",
+      "candidate",
+      "insiders-released"
+    ],
+    "created_at": "2026-05-26T19:19:09Z",
+    "closed_at": "2026-05-26T20:07:34Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/318418"
+  },
+  {
+    "id": 4525714882,
+    "title": "Github-Copilot slow suggestion preferedd over snippet autocomplete",
+    "body": "\nType: <b>Bug</b>\n\nHi, VScode preferees to Github-Copilot slow suggestion over snippet when typing autocomplete..\n\neg: typing 'console.' in js file, waits for copilot to finish first and gives the .log, .profile, .profileend suggestion dropdown much later. It should give the dropdown by default immedietly and at the same time show the github suggestion shadow\n\nVS Code version: Code 1.121.0 (f6cfa2ea2403534de03f069bdf160d06451ed282, 2026-05-19T11:51:53+02:00)\nOS version: Windows_NT x64 10.0.19045",
+    "labels": [
+      "bug",
+      "snippets",
+      "unreleased"
+    ],
+    "created_at": "2026-05-26T16:16:52Z",
+    "closed_at": "2026-05-28T16:51:03Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/318380"
+  },
+  {
+    "id": 4525598851,
+    "title": "'Manage Language Models' menu item not seen when not signed in",
+    "body": "Testing #318190\n\nRepro steps:\n1. Open VS Code with `--transient`\n2. Open the chat window and select the model picker\n\nExpected: See the 'Manage Models' menu item to add BYOK models\n\nActual:\n<img width=\"296\" height=\"109\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/9631dcff-fc5c-4305-b013-4b0d52462437\" />",
+    "labels": [
+      "bug",
+      "insiders-released",
+      "model-byok"
+    ],
+    "created_at": "2026-05-26T16:00:25Z",
+    "closed_at": "2026-05-27T00:01:30Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/318377"
+  },
+  {
+    "id": 4523654653,
+    "title": "Cross-file inline edit list never disposed; handleListEndOfLifetime not fired",
+    "body": "## Summary\n\nWhen the user accepts an inline edit whose target is a different document, the producing `InlineSuggestionList` is never disposed. As a consequence, the extension-host `InlineCompletionItemProvider.handleListEndOfLifetime` callback never fires for cross-file inline edits, and any end-of-life telemetry the extension sends from that callback is silently dropped.\n\nThis was caught while investigating missing `provideInlineEdit` telemetry for cross-file NES in the Copilot Chat extension.\n",
+    "labels": [
+      "bug",
+      "insiders-released",
+      "NES",
+      "NES-ux"
+    ],
+    "created_at": "2026-05-26T10:58:25Z",
+    "closed_at": "2026-05-26T20:57:14Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/318341"
+  },
+  {
+    "id": 4523595189,
+    "title": "Agent host root state change triggers sandbox config update",
+    "body": null,
+    "labels": [
+      "bug",
+      "agent-sandbox"
+    ],
+    "created_at": "2026-05-26T10:47:23Z",
+    "closed_at": "2026-05-27T06:51:50Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/318338"
+  },
+  {
+    "id": 4520311537,
+    "title": "AgentHost: Steering messages aren't rendered",
+    "body": "- Send steering message\n- It is rendered while queued\n- But once it's actually sent, it never shows up\n\nI suspect that we are ignoring `user.message` while inside a turn ",
+    "labels": [
+      "bug",
+      "insiders-released",
+      "agent-host"
+    ],
+    "created_at": "2026-05-26T00:23:48Z",
+    "closed_at": "2026-05-26T23:29:43Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/318265"
+  },
+  {
+    "id": 4505871935,
+    "title": "\"Add Element to Chat\" and \"Add Console Logs to Chat\" no-op when chat panel was closed before",
+    "body": "1. Close the chat panel\n2. Reload window\n3. Use \"Add Element to Chat\" feature in Integrated Browser (load a website, click on \"Add Element to Chat\" button, then click on a DOM element on the page)\n4. 🐛 The chat panel opens, but it has no attachments\n5. Expected: The chat panel should have the selected element as an attachment\n\nThe same issue happens with \"Add Console Logs to Chat\" (but for validating this one, you need to go to a page that has produced console logs)\n\nImportant note: It only rep",
+    "labels": [
+      "bug",
+      "verified",
+      "insiders-released",
+      "browser-integration"
+    ],
+    "created_at": "2026-05-22T22:14:29Z",
+    "closed_at": "2026-05-23T02:32:48Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/318058"
+  },
+  {
+    "id": 4504062081,
+    "title": "BYOK utility model prompt",
+    "body": "<img width=\"887\" height=\"1026\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/4450f08d-af8c-415d-92d2-eaa1c7c8163e\" />\n\n\nI am seeing this pop up when I sign out of my GH account which is a little unexpected. Reloading the window has it go away. Seems to be a bug but lmk! ",
+    "labels": [
+      "bug",
+      "model-byok"
+    ],
+    "created_at": "2026-05-22T16:15:55Z",
+    "closed_at": "2026-05-27T09:15:26Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/318011"
+  },
+  {
+    "id": 4503805094,
+    "title": "Unable to deactivate AI-Onboarding in first VSC Launch",
+    "body": "Unable to deactivate AI-Onboarding in first VSC Launch. We do not allow usage of AI-powered development in VSC.\n\nEven settings.json is set before installation with attributes\n`\n{\n    \"workbench.colorTheme\":  \"Visual Studio Light\",\n    \"workbench.iconTheme\":  \"vs-seti\",\n    \"files.autoSave\":  \"onFocusChange\",\n    \"window.zoomLevel\":  0,\n    \"telemetry.telemetryLevel\":  \"off\",\n    \"update.enableWindowsBackgroundUpdates\":  false,\n    \"update.showReleaseNotes\":  false,\n    \"update.mode\":  \"none\",\n  ",
+    "labels": [
+      "bug",
+      "important"
+    ],
+    "created_at": "2026-05-22T15:33:42Z",
+    "closed_at": "2026-05-26T17:47:36Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/318001"
+  },
+  {
+    "id": 4499641886,
+    "title": "Snippetswork once after window reload, then stop responding",
+    "body": "\nType: <b>Bug</b>\n\nSnippets (user-level and workspace-level) work once after window reload, then stop responding until the next reload\nConfirmed regression: works correctly on 1.120, broken on 1.121\nWindows 11\nAffects both user snippets and workspace .code-snippets\nSteps to reproduce: open workspace → use any snippet → try to use any snippet again without reloading → fails\n\nVS Code version: Code 1.120.0 (0958016b2af9f09bb4257e0df4a95e2f90590f9f, 2026-05-12T20:17:22Z)\nOS version: Windows_NT x64 1",
+    "labels": [
+      "bug",
+      "snippets",
+      "unreleased"
+    ],
+    "created_at": "2026-05-22T03:42:49Z",
+    "closed_at": "2026-05-28T16:51:03Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/317916"
+  },
+  {
+    "id": 4498271193,
+    "title": "Agent-opened browsers shouldn't always be opened in the foreground",
+    "body": "Key scenarios (all in the classic / non-agents view)\n\n1. Ask agent to open a browser page, keep the session open --> browser should open in the foreground\n2. Ask agent to open a browser page, hide or switch sessions --> browser should open in the **background**\n3. Move session into the main editor pane, ask to open a browser page --> browser should open in the **background**\n\n",
+    "labels": [
+      "bug",
+      "verified",
+      "insiders-released",
+      "browser-integration"
+    ],
+    "created_at": "2026-05-21T22:17:05Z",
+    "closed_at": "2026-05-21T23:27:10Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/317869"
+  },
+  {
+    "id": 4494058007,
+    "title": "BYOK: Terminal steering request may not reuse frozen customizations-index",
+    "body": "<!-- Please search existing issues to avoid creating duplicates -->\n<!-- Please attach logs to help us diagnose your issue -->\n\n- Copilot Chat Extension Version: Stable/ Insiders / built from current `main` around #316191 / #316466 / #316478\n- VS Code Version: Stable 1.121.0(f6cfa2ea2403534de03f069bdf160d06451ed282) / Insiders 1.122.0(b51c2a1a37574dec35d0426b2ee9c3538c9774f4)\n- OS Version: macOS Tahoe 26.4\n- Feature (e.g. agent/edit/ask mode): agent mode, terminal steering request\n- Selected mod",
+    "labels": [
+      "bug",
+      "verified",
+      "insiders-released"
+    ],
+    "created_at": "2026-05-21T11:14:26Z",
+    "closed_at": "2026-05-24T01:45:51Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/317763"
+  },
+  {
+    "id": 4492439933,
+    "title": "Remote `ssh` connection fails from Debian -> MacOS",
+    "body": "\nType: <b>Bug</b>\n\nNew in this release; was working before.\n\nTo Reproduce\n============\n\n0. This assumes both systems are set up for passwordless `ssh`, including loading a certificate locally with `ssh-add`.  Further it assumes `VSCode` has a previous definition of the desired remote `ssh` connection.  I don't know if that's essential (as opposed to creating it on the fly) but it might be. It could well be essential that the connection was used with the immediately preceding released version of ",
+    "labels": [
+      "bug",
+      "important",
+      "verified",
+      "insiders-released",
+      "ssh"
+    ],
+    "created_at": "2026-05-21T06:57:02Z",
+    "closed_at": "2026-05-21T23:06:20Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/317714"
+  },
+  {
+    "id": 4490215933,
+    "title": "Agents window workspace storage is sometimes wiped when restarting",
+    "body": "I have sometimes lost all the state of my archived sessions when updating vscode. Copilot suggests that this is from `UnusedWorkspaceStorageDataCleaner`.\n\n```\n### Could it get cleared? **Yes — there's a real risk.**\n\nThe shared process runs `UnusedWorkspaceStorageDataCleaner` (`src/vs/code/electron-utility/sharedProcess/contrib/storageDataCleaner.ts`) ~30s after startup. For each folder under `workspaceStorage/`:\n1. **Length check** — keeps folders whose name length === `NON_EMPTY_WORKSPACE_ID_L",
+    "labels": [
+      "bug",
+      "verified",
+      "insiders-released",
+      "agents-window"
+    ],
+    "created_at": "2026-05-20T22:02:58Z",
+    "closed_at": "2026-05-22T09:22:24Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/317643"
+  },
+  {
+    "id": 4488931006,
+    "title": "Agents app opens a new lower chat instead of processing the first prompt",
+    "body": "- VS Code Version: 1.121.0-insider\n- OS Version: macOS 26.4.1\n- Feature (e.g. agent/edit/ask mode): Sessions app / Agents window chat, prompt execution\n- Selected model: GPT 5.5\n\nSteps to Reproduce:\n\n1. Open a Sessions app / Agents window chat, using local.\n2. Launch or run a prompt from within that chat.\n3. Observe that VS Code opens another lower chat (on auto) instead of continuing in the current chat.\n\nhttps://github.com/user-attachments/assets/7cde3c43-99b3-45cd-a5b4-67872aef240f",
+    "labels": [
+      "bug",
+      "verified",
+      "agents-window",
+      "copilot-chat"
+    ],
+    "created_at": "2026-05-20T18:25:43Z",
+    "closed_at": "2026-05-26T14:07:45Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/317588"
+  },
+  {
+    "id": 4488245058,
+    "title": "Agent host is spawning worktree terminal",
+    "body": "<img width=\"1122\" height=\"1336\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/d0649502-e27a-4efc-ac1a-6e44fd102b56\" />\n\n<img width=\"1100\" height=\"505\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/c1f92600-07af-4737-964b-867020a6df3d\" />\n\n\nagent host opening terminal based on worktree even though folder was selected..\n\nI had setting: `github.copilot.chat.cli.isolationOption.enabled` disabled and thought that would let be avoid worktree related things.",
+    "labels": [
+      "bug",
+      "verified",
+      "terminal",
+      "insiders-released",
+      "agent-host"
+    ],
+    "created_at": "2026-05-20T16:34:41Z",
+    "closed_at": "2026-05-21T14:48:22Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/317567"
+  },
+  {
+    "id": 4487634412,
+    "title": "Remote SSH in Agent Window missing key passphrase and IdentityAgent",
+    "body": "\nType: <b>Bug</b>\n\nHi, \n\nI encounter this issue when i tried to connect Remote SSH in the Agent Window. When i clicked on one of the host alias name nothing happens. and I click on the + button it still point to local window machine path.\n\nVS Code version: Code 1.121.0 (f6cfa2ea2403534de03f069bdf160d06451ed282, 2026-05-19T11:51:53+02:00)\nOS version: Windows_NT x64 10.0.26100\nModes:\nRemote OS version: Linux x64 5.14.21-150400.24.158-default\nConnection to 'ssh-remote+7b22686f73744e616d65223a224c69",
+    "labels": [
+      "bug",
+      "verified",
+      "insiders-released",
+      "agent-host"
+    ],
+    "created_at": "2026-05-20T15:09:41Z",
+    "closed_at": "2026-05-26T00:50:55Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/317549"
+  },
+  {
+    "id": 4486643253,
+    "title": "Agents: Session list reorders immediately on opening search, causing visual jump",
+    "body": "As soon as the user clicks the 🔍 icon in the session list, the order of sessions changes — causing a disruptive visual jump before any text has been typed.\n\nThe session order should only change once the first character is typed (as we do in the quick pick). This would provide a smoother UX.",
+    "labels": [
+      "bug",
+      "verified",
+      "insiders-released",
+      "agents-window",
+      "agents-app"
+    ],
+    "created_at": "2026-05-20T13:00:22Z",
+    "closed_at": "2026-05-20T22:48:33Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/317520"
+  },
+  {
+    "id": 4481652879,
+    "title": "Only surface \"sort imports\" and \"remove unused imports\" when TS client is running/useTsgo is not active",
+    "body": "See also https://github.com/microsoft/typescript-go/issues/1724\n\nWe want the TypeScript native preview extension to contribute commands for \"sort imports\" and \"remove unused imports\". Unfortunately, even when the `js/ts...useTsgo` setting is on, the built-in extension still makes the two commands available.\n\nIdeally, we would have our extension register the same command, but double-registering a command name causes errors at runtime. So instead, each extension needs to defer to the other.",
+    "labels": [
+      "bug",
+      "verified",
+      "insiders-released"
+    ],
+    "created_at": "2026-05-19T22:50:55Z",
+    "closed_at": "2026-05-21T00:32:32Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/317413"
+  },
+  {
+    "id": 4479882756,
+    "title": "Chronicle SQL: Standup returns empty results 88% of the time",
+    "body": "## Problem\n\nThe standup action (`source=standup`) returns zero rows ~88% of the time. The vast majority of users who try standup get nothing useful back.\n\n## Likely Causes\n\n1. User's local store is empty (new rollout, no sessions indexed yet)\n2. The time window query (last 24h) misses sessions from yesterday if timezone isn't handled correctly\n3. User hasn't had any chat sessions since chronicle was enabled\n\n## Fix\n\n1. **Pre-flight check**: before running the standup query, check if the store ha",
+    "labels": [
+      "bug",
+      "verified",
+      "insiders-released",
+      "chronicle"
+    ],
+    "created_at": "2026-05-19T18:14:58Z",
+    "closed_at": "2026-05-21T01:56:45Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/317357"
+  },
+  {
+    "id": 4479880491,
+    "title": "Chronicle SQL: Cloud query source has 78% failure rate",
+    "body": "## Problem\n\nThe `cloud` source for chronicle SQL queries fails ~78% of the time. Very few devices have ever successfully queried cloud.\n\n**Error breakdown:**\n- `empty_result` — most common: query runs but returns nothing\n- `HTTP 404` — session not found on server\n- DuckDB Binder Errors — same schema hallucination as local (#317355)\n\n## Root Cause\n\nSessions either haven't been synced yet, have expired server-side, or the cloud API can't find them by the IDs being queried. The LLM may also be cons",
+    "labels": [
+      "bug",
+      "chronicle"
+    ],
+    "created_at": "2026-05-19T18:14:37Z",
+    "closed_at": "2026-05-21T00:12:33Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/317356"
+  },
+  {
+    "id": 4479878296,
+    "title": "Chronicle SQL: LLM hallucinates schema — 97% of query errors are wrong column/table names",
+    "body": "## Problem\n\nThe chronicle SQL query tool has a high error rate, and ~97% of errors are the LLM generating SQL against columns and tables that don't exist in the database.\n\n**Top hallucinated columns:** `session_id`, `title`, `started_at`, `content`, `timestamp`, `start_time`, `role`\n**Top hallucinated tables:** `messages`, `sessions_fts`, `messages_fts`, `files`, `tools`\n\nError rate is **trending up** as rollout scales. Uniform across platforms (Win/Mac/Linux all ~29%), confirming it's a model k",
+    "labels": [
+      "bug",
+      "verified",
+      "insiders-released",
+      "chronicle"
+    ],
+    "created_at": "2026-05-19T18:14:15Z",
+    "closed_at": "2026-05-20T06:06:31Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/317355"
+  },
+  {
+    "id": 4478898232,
+    "title": "Chronicle cloud sync: createCloudSession should gracefully handle policy-blocked users",
+    "body": "## Problem\n\nWhen enterprise policies block cloud session creation, the chronicle cloud sync repeatedly attempts to create sessions and fails. There is no caching of the policy-blocked state, so the same request is retried on every session start, generating unnecessary failures and eventually tripping the circuit breaker.\n\n## Current behavior\n\n1. User starts a chat session\n2. Chronicle attempts createCloudSession\n3. Server returns a policy-blocked error\n4. Next session start: same thing repeats\n5",
+    "labels": [
+      "bug",
+      "verified",
+      "insiders-released"
+    ],
+    "created_at": "2026-05-19T15:54:56Z",
+    "closed_at": "2026-05-21T00:32:53Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/317331"
+  },
+  {
+    "id": 4478895311,
+    "title": "Chronicle cloud sync: circuit breaker never recovers within a session",
+    "body": "## Problem\n\nThe chronicle cloud sync circuit breaker transitions to an open (tripped) state after repeated failures, but never transitions back to a half-open or closed state within the same VS Code session.\n\nOnce the breaker trips, cloud sync is effectively dead until the user restarts VS Code. There is no periodic retry or half-open probe to detect when the transient issue has resolved.\n\n## Expected behavior\n\nThe circuit breaker should implement a standard half-open state:\n- After a cooldown p",
+    "labels": [
+      "bug",
+      "verified",
+      "insiders-released"
+    ],
+    "created_at": "2026-05-19T15:54:33Z",
+    "closed_at": "2026-05-21T01:56:09Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/317330"
+  },
+  {
+    "id": 4478892633,
+    "title": "Chronicle: SQLite store is unreliable on SSH-Remote workspaces",
+    "body": "## Problem\n\nThe chronicle local store uses SQLite for persistence. On SSH-Remote workspaces (Linux), SQLite encounters cascading failures due to network filesystems not providing the POSIX locking guarantees that SQLite requires.\n\nThe failure pattern is:\n1. Initial locking protocol errors or disk I/O errors\n2. Escalates to database disk image is malformed\n3. Then file is not a database (corruption is now permanent)\n4. All subsequent flush operations fail until the database file is deleted\n\nThis ",
+    "labels": [
+      "bug",
+      "*duplicate"
+    ],
+    "created_at": "2026-05-19T15:54:11Z",
+    "closed_at": "2026-05-19T16:01:24Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/317328"
+  },
+  {
+    "id": 4473340053,
+    "title": "Browser: Reflow issue in \"Link opened here\" dialog",
+    "body": "Notice the position of the \"Open Settings\" link:\n\nWhen right side bar is open:\n<img width=\"394\" height=\"82\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/f94c9b61-2576-480a-b33c-4d622b7d11eb\" />\n\nWhen right side bar is closed:\n<img width=\"391\" height=\"190\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/4cf0d5d7-5bd2-43b9-a591-a0e3fce82c5d\" />",
+    "labels": [
+      "bug",
+      "verified",
+      "insiders-released",
+      "browser-integration"
+    ],
+    "created_at": "2026-05-18T23:47:01Z",
+    "closed_at": "2026-05-21T23:50:51Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/317210"
+  },
+  {
+    "id": 4472806640,
+    "title": "\"workbench.list.openMode\": \"doubleClick\" should be ignored in \"Open Editors\" Explorer",
+    "body": "<!-- ⚠️⚠️ Do Not Delete This! bug_report_template ⚠️⚠️ -->\n<!-- Please read our Rules of Conduct: https://opensource.microsoft.com/codeofconduct/ -->\n<!-- 🕮 Read our guide about submitting issues: https://github.com/microsoft/vscode/wiki/Submitting-Bugs-and-Suggestions -->\n<!-- 🔎 Search existing issues to avoid creating duplicates. -->\n<!-- 🧪 Test using the latest Insiders build to see if your issue has already been fixed: https://code.visualstudio.com/insiders/ -->\n<!-- 💡 Instead of creatin",
+    "labels": [
+      "bug",
+      "verified",
+      "polish",
+      "insiders-released",
+      "open-editors"
+    ],
+    "created_at": "2026-05-18T21:45:21Z",
+    "closed_at": "2026-05-20T13:19:06Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/317181"
+  },
+  {
+    "id": 4472749485,
+    "title": "Upgrade action shows for chat input notification but not the chat dashboard",
+    "body": "We should probably also have a different input message if upgrade is not available? (why is it unavailable though? https://github.com/microsoft/vscode/commit/6af53b9bfb65d3d7a3e06478a56317091871064c)\n\n<img src=\"https://github.com/user-attachments/assets/d9cb10b0-fa4f-42ad-83c6-6e7e30f80757\" alt=\"Image\" width=\"837\" height=\"163\">\n\n<img src=\"https://github.com/user-attachments/assets/e65376b7-44e9-4d03-af82-1e92779978b4\" alt=\"Image\" width=\"371\" height=\"206\">\n\n",
+    "labels": [
+      "bug",
+      "verified",
+      "UBB"
+    ],
+    "created_at": "2026-05-18T21:35:01Z",
+    "closed_at": "2026-05-21T14:40:27Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/317179"
+  },
+  {
+    "id": 4472141077,
+    "title": "Can't add content from iframe in integrated browser to chat",
+    "body": "Testing #316658\n\n1 . For a simple iframe \n\n```html\n\t<iframe title=\"Embedded content\" srcdoc=\"\n\t\t<!DOCTYPE html>\n\t\t<html lang='en'>\n\t\t<head>\n\t\t\t<meta charset='UTF-8'>\n\t\t\t<style>\n\t\t\t\tbody { font-family: system-ui, sans-serif; margin: 1rem; background: #f5f7fa; color: #222; }\n\t\t\t\th2 { margin-top: 0; }\n\t\t\t\tbutton { font: inherit; padding: 0.4rem 0.8rem; cursor: pointer; }\n\t\t\t</style>\n\t\t</head>\n\t\t<body>\n\t\t\t<h2>Hello from the iframe</h2>\n\t\t\t<p>This page is loaded inline via <code>srcdoc</code>.</p>\n\t\t",
+    "labels": [
+      "bug",
+      "verified",
+      "insiders-released",
+      "browser-integration"
+    ],
+    "created_at": "2026-05-18T19:56:25Z",
+    "closed_at": "2026-05-21T21:32:31Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/317137"
+  },
+  {
+    "id": 4472113777,
+    "title": "`Element%20screenshot` show when opening browser attachment",
+    "body": "Testing #316658\n\n1. Use `add element to chat` in integrated bowser\n2. In chat, click on the added element attachment\n\n**Bug**\nThe opened editor shows\n\n<img width=\"265\" height=\"141\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/13897922-98fe-4ede-bd61-d4b7130cdf76\" />",
+    "labels": [
+      "bug",
+      "insiders-released"
+    ],
+    "created_at": "2026-05-18T19:51:57Z",
+    "closed_at": "2026-05-25T19:59:32Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/317135"
+  },
+  {
+    "id": 4471413382,
+    "title": "Accessibility: Screen reader goes in loop with copilot dashboard",
+    "body": "Steps to Reproduce:\n1. Enable voice over and screen reader optimized\n2. Ask chat do to a long running session that makes multiple tool calls\n3. While the chat streams open the chat dashboard from status bar\n<img src=\"https://github.com/user-attachments/assets/39980677-23d1-4f43-8181-d3bba832c4c2\" alt=\"Image\" width=\"449\" height=\"355\">\n4. 🐛 it keeps reading the dashboard content over and over again \n",
+    "labels": [
+      "bug",
+      "important",
+      "verified",
+      "accessibility",
+      "insiders-released"
+    ],
+    "created_at": "2026-05-18T18:04:59Z",
+    "closed_at": "2026-05-19T16:46:18Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/317102"
+  },
+  {
+    "id": 4471248884,
+    "title": "Mermaid Preview: diagram view right-click menu cut/paste should be removed or fixed",
+    "body": "Testing #316754\n\nI tried right click menu in diagram:\n\nCut doesn't work - i expect it either to be removed from right click menu or work like copy merely.\nPaste does not make sense in the diagram view IMO\n\nhttps://github.com/user-attachments/assets/8aa3f791-a7ae-4682-a995-965d942bb2fa",
+    "labels": [
+      "bug",
+      "verified",
+      "insiders-released"
+    ],
+    "created_at": "2026-05-18T17:41:00Z",
+    "closed_at": "2026-05-18T18:33:15Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/317094"
+  },
+  {
+    "id": 4471219019,
+    "title": "mermaid: missing image",
+    "body": "Testing #316726\n\nidk what's going on here:\n\n<img width=\"745\" height=\"441\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/76538335-6d0e-46eb-83ef-91adf0d63db5\" />\n\n```mermaid\nC4Context\n    title Claude Agent Host — system context\n    Person(dev, \"Developer\", \"Writes code in VS Code\")\n    System(vscode, \"VS Code\", \"Editor + agent UI\")\n    System_Ext(claude, \"Claude API\", \"Anthropic-hosted LLM\")\n    System_Ext(mcp, \"MCP servers\", \"Tool providers\")\n    System_Ext(github, \"GitHub\", \"Sour",
+    "labels": [
+      "bug",
+      "verified",
+      "chat",
+      "mermaid"
+    ],
+    "created_at": "2026-05-18T17:36:06Z",
+    "closed_at": "2026-05-19T04:42:30Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/317091"
+  },
+  {
+    "id": 4471213192,
+    "title": "Mermaid Preview: zoom/pan widget shows up even in non-diagram view and with UI clones",
+    "body": "Testing #316754\n\nif i intentionally breaks a complete snippet by deleting the last backtick, the preview shows the code text as expected; but i don't expect the zoom/pan widget to show and there is another clone if i move the snippet with pan. \n\nhttps://github.com/user-attachments/assets/1b6b0c8b-51a8-452e-a9e3-e2bdce408c5e",
+    "labels": [
+      "bug",
+      "verified",
+      "insiders-released"
+    ],
+    "created_at": "2026-05-18T17:35:07Z",
+    "closed_at": "2026-05-18T19:34:02Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/317090"
+  },
+  {
+    "id": 4471096389,
+    "title": "Cloud session model picker shows 0x",
+    "body": "![Image](https://github.com/user-attachments/assets/f8b7e398-7c93-4a15-b406-aa6d370e031e)\n\nIn a UBB user account the Cloud model picker is showing 0x for all models ",
+    "labels": [
+      "bug",
+      "UBB"
+    ],
+    "created_at": "2026-05-18T17:17:14Z",
+    "closed_at": "2026-05-26T21:28:51Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/317079"
+  },
+  {
+    "id": 4470996807,
+    "title": "Mermaid: hit the \"expand\" button (far right) and the diagram was cut off",
+    "body": "Testing #316726\n\n<img width=\"456\" height=\"585\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/8113a326-d93c-44c1-9a83-1b9021016ebf\" />\n\nSteps:\n* have a few different charts up\n* hit the button on the right\n* 🐛 the graph is cut off",
+    "labels": [
+      "bug",
+      "verified",
+      "insiders-released",
+      "mermaid"
+    ],
+    "created_at": "2026-05-18T17:01:50Z",
+    "closed_at": "2026-05-20T06:27:22Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/317075"
+  },
+  {
+    "id": 4470977555,
+    "title": "Text are difficult to read when dark+ and \"markdown-mermaid.darkModeTheme\": \"base\"",
+    "body": "<img width=\"998\" height=\"502\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/5e8959f9-0d53-4acb-a39a-b0086cc55b8f\" />\n\nTesting #316754\n\nIt's pretty difficult to read some of the  test with combination of workbench theme `dark+` and mermaid darkMode theme to base.",
+    "labels": [
+      "bug",
+      "verified",
+      "mermaid"
+    ],
+    "created_at": "2026-05-18T16:58:52Z",
+    "closed_at": "2026-05-20T23:05:24Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/317073"
+  },
+  {
+    "id": 4469179780,
+    "title": "Agents Window Account Hover has wrong cursor type when hovering actions",
+    "body": "The actions in the hover should have `cursor: pointer`. Also, the main issue is that it's reimplementing the `Action` concept and trying to look the same even though we've implemented this years ago and is meant to be reusable. It should just use an Actionbar and add the two actions. The Actionbar will then make sure to render these two actions correctly and consistently.\n\nhttps://github.com/user-attachments/assets/edc111c2-ca3a-4288-8fc7-6b415933d7a0",
+    "labels": [
+      "bug",
+      "verified",
+      "polish",
+      "insiders-released",
+      "UBB"
+    ],
+    "created_at": "2026-05-18T12:41:28Z",
+    "closed_at": "2026-05-18T22:16:54Z",
+    "state": "closed",
+    "url": "https://github.com/microsoft/vscode/issues/317017"
+  }
+]
