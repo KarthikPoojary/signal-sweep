@@ -40,9 +40,14 @@ export default function InputPanel({ onAnalyse, loading }: Props) {
   const [ghFetching, setGhFetching] = useState(false);
   const [ghError, setGhError] = useState('');
 
-  // API key state (shown for paste/github mode)
+  // API key state — auto-shown when switching to non-sample mode
   const [apiKey, setApiKey] = useState('');
   const [showKeyPanel, setShowKeyPanel] = useState(false);
+
+  function switchMode(next: InputMode) {
+    setMode(next);
+    if (next !== 'sample') setShowKeyPanel(true);
+  }
 
   async function handleFetchGitHub() {
     const parts = ghOwnerRepo.trim().split('/');
@@ -89,10 +94,11 @@ export default function InputPanel({ onAnalyse, loading }: Props) {
     }
   }
 
+  const hasKey = apiKey.trim().length > 0;
   const canAnalyse =
     mode === 'sample' ||
-    (mode === 'paste' && pasteText.trim().length > 0) ||
-    (mode === 'github' && ghIssues !== null && ghIssues.length > 0);
+    (mode === 'paste' && pasteText.trim().length > 0 && hasKey) ||
+    (mode === 'github' && ghIssues !== null && ghIssues.length > 0 && hasKey);
 
   const needsKey = mode !== 'sample';
 
@@ -109,7 +115,7 @@ export default function InputPanel({ onAnalyse, loading }: Props) {
         ).map(opt => (
           <button
             key={opt.id}
-            onClick={() => setMode(opt.id)}
+            onClick={() => switchMode(opt.id)}
             className={`px-4 py-3 rounded-lg border text-left transition-colors ${
               mode === opt.id
                 ? 'border-indigo-500 bg-indigo-950/60'
@@ -188,7 +194,7 @@ export default function InputPanel({ onAnalyse, loading }: Props) {
             onClick={() => setShowKeyPanel(k => !k)}
             className="text-xs text-neutral-500 hover:text-neutral-300 transition-colors"
           >
-            {showKeyPanel ? 'Hide' : 'Add your Anthropic API key to run real analysis'}
+            {showKeyPanel ? 'Hide API key' : 'Add a free Groq API key to run real analysis'}
           </button>
           {showKeyPanel && (
             <div className="space-y-1">
@@ -200,7 +206,7 @@ export default function InputPanel({ onAnalyse, loading }: Props) {
                 className="w-full px-4 py-2 rounded-lg border border-neutral-700 bg-neutral-900 text-neutral-100 font-mono text-sm placeholder:text-neutral-600 focus:outline-none focus:border-neutral-500"
               />
               <p className="text-[11px] text-neutral-600">
-                Free Groq key: <a href="https://console.groq.com/keys" target="_blank" rel="noopener noreferrer" className="underline hover:text-neutral-400">console.groq.com/keys</a> — takes 2 minutes. Key stays in the browser, never stored.
+                Free Groq key: <a href="https://console.groq.com/keys" target="_blank" rel="noopener noreferrer" className="underline hover:text-neutral-400">console.groq.com/keys</a> — 2 minutes, no card. Key stays in the browser, never stored.
               </p>
             </div>
           )}

@@ -54,7 +54,7 @@ export default function Home() {
         <header className="space-y-1">
           <h1 className="text-xl font-bold tracking-tight text-neutral-100">Signal Sweep</h1>
           <p className="text-sm text-neutral-500">
-            Find the patterns in your incident backlog — powered by Claude
+            Find the patterns in your incident backlog — powered by Groq / Claude
           </p>
         </header>
 
